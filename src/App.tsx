@@ -1,4 +1,5 @@
 import { ActionButton } from './components/action-button'
+import { UserForm } from './components/user-form'
 import { Footer } from './ui/footer'
 import { Header } from './ui/header'
 
@@ -10,12 +11,12 @@ function App() {
         <h1 className='text-3xl font-bold text-center block my-2'>
           ATM Simulator
         </h1>
-        <div className='flex justify-around'>
+        {/* <div className='flex justify-around'>
           <ActionButton text='Enter' />
           <ActionButton text='Create Account' />
-        </div>
+        </div> */}
 
-        {/* <UserForm /> */}
+        <UserForm />
       </div>
       <Footer />
     </div>
