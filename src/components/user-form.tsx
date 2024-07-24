@@ -5,14 +5,56 @@ import {
   DeviceMobileSpeaker,
 } from 'phosphor-react'
 import { Button, InputIcon, Input, Label } from 'keep-react'
+import { useState } from 'react'
+import { useUsers } from '../hooks/use-users'
+
+export interface UserPayload {
+  name: string
+  email: string
+  phone?: number
+  pin: number
+}
 
 export const UserForm = () => {
+  const [newUser, setNewUser] = useState<UserPayload>({
+    name: '',
+    email: '',
+    phone: 0,
+    pin: 0,
+  })
+
+  const { loading, handleCreateUser } = useUsers()
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target
+
+    const newValue =
+      name === 'phone' || name === 'pin' ? parseInt(value, 10) : value
+
+    setNewUser({ ...newUser, [name]: newValue })
+  }
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+    console.log(newUser)
+    const res = handleCreateUser(newUser)
+    const data = res.then((data) => console.log(data))
+    console.log(data)
+  }
+
   return (
-    <form className='mx-auto max-w-md space-y-2 rounded-lg border p-8 shadow-md'>
+    <form
+      className='mx-auto max-w-md space-y-2 rounded-lg border p-8 shadow-md'
+      onSubmit={handleSubmit}>
       <fieldset className='space-y-1'>
         <Label htmlFor='name'>Name</Label>
         <div className='relative'>
-          <Input placeholder='Enter name' className='ps-11' />
+          <Input
+            name='name'
+            placeholder='Enter name'
+            className='ps-11'
+            onChange={handleChange}
+          />
           <InputIcon>
             <ChalkboardTeacher size={19} color='#AFBACA' />
           </InputIcon>
@@ -21,7 +63,12 @@ export const UserForm = () => {
       <fieldset className='space-y-1'>
         <Label htmlFor='email'>Email</Label>
         <div className='relative'>
-          <Input placeholder='Enter email' className='ps-11' />
+          <Input
+            name='email'
+            placeholder='Enter email'
+            className='ps-11'
+            onChange={handleChange}
+          />
           <InputIcon>
             <Envelope size={19} color='#AFBACA' />
           </InputIcon>
@@ -31,7 +78,12 @@ export const UserForm = () => {
       <fieldset className='space-y-1'>
         <Label htmlFor='phone'>Phone</Label>
         <div className='relative'>
-          <Input placeholder='Enter phone' className='ps-11' />
+          <Input
+            name='phone'
+            placeholder='Enter phone'
+            className='ps-11'
+            onChange={handleChange}
+          />
           <InputIcon>
             <DeviceMobileSpeaker size={19} color='#AFBACA' />
           </InputIcon>
@@ -42,18 +94,20 @@ export const UserForm = () => {
         <Label htmlFor='password'>Password</Label>
         <div className='relative'>
           <Input
-            id='password'
+            id='pin'
+            name='pin'
             placeholder='Enter password'
             type='password'
             className='ps-11'
+            onChange={handleChange}
           />
           <InputIcon>
             <Lock size={19} color='#AFBACA' />
           </InputIcon>
         </div>
       </fieldset>
-      <Button size='sm' color='secondary' type='submit'>
-        Sign In
+      <Button size='sm' color='secondary'>
+        Create
       </Button>
     </form>
   )
