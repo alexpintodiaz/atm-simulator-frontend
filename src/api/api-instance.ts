@@ -1,8 +1,6 @@
-
 import axios from 'axios'
 
 const baseURL = process.env.ATM_API_URL
-
 
 type FetchDataFuncProps = {
   endpoint: string
