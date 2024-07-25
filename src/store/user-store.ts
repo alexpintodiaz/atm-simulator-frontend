@@ -1,6 +1,6 @@
 import { Account, User } from '../api/interfaces/users-api'
 import { create } from 'zustand'
-import { devtools, persist } from 'zustand/middleware'
+import { createJSONStorage, devtools, persist } from 'zustand/middleware'
 import { fetchApi } from '../api/api-instance'
 
 interface UserState {
@@ -51,7 +51,8 @@ export const useUserStore = create<UserState>()(
         }
       },
       {
-        name: 'user-store',
+        name: 'user-store-z',
+        storage: createJSONStorage(() => sessionStorage),
       },
     ),
   ),
