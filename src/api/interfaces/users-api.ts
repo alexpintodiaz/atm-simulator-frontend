@@ -17,5 +17,5 @@ export interface Account {
 export interface UsersApi {
   getAllUsers: () => Promise<any>
 
-  postUser: (payload: any) => Promise<any>
+  postUser: (payload: any) => Promise<User>
 }

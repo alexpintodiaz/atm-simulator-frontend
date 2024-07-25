@@ -4,9 +4,9 @@ import {
   ChalkboardTeacher,
   DeviceMobileSpeaker,
 } from 'phosphor-react'
-import { Button, InputIcon, Input, Label } from 'keep-react'
+import { Button, InputIcon, Input, Label, Spinner } from 'keep-react'
 import { useState } from 'react'
-import { crateNewUser } from '../utils/create-new-user'
+import { useUsers } from '../hooks/use-users'
 
 export interface UserPayload {
   name: string
@@ -23,6 +23,8 @@ export const UserForm = () => {
     pin: '',
   })
 
+  const { isLoading, createNewUser } = useUsers()
+
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target
 
@@ -34,9 +36,8 @@ export const UserForm = () => {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     console.log(newUser)
-    const res = await crateNewUser(newUser)
 
-    console.log(res)
+    createNewUser(newUser)
   }
 
   return (
@@ -104,7 +105,7 @@ export const UserForm = () => {
         </div>
       </fieldset>
       <Button size='sm' color='secondary'>
-        Create
+        {isLoading ? <Spinner color='info' size='md' /> : 'Create Account'}
       </Button>
     </form>
   )
