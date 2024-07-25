@@ -7,6 +7,7 @@ import {
 import { Button, InputIcon, Input, Label, Spinner } from 'keep-react'
 import { useState } from 'react'
 import { useUsers } from '../hooks/use-users'
+import { useAppNavigate } from '../hooks/use-app-navigate'
 
 export interface UserPayload {
   name: string
@@ -16,6 +17,8 @@ export interface UserPayload {
 }
 
 export const UserForm = () => {
+  const navigate = useAppNavigate()
+
   const [newUser, setNewUser] = useState<UserPayload>({
     name: '',
     email: '',
@@ -41,72 +44,77 @@ export const UserForm = () => {
   }
 
   return (
-    <form
-      className='mx-auto max-w-md space-y-2 rounded-lg border p-8 shadow-md'
-      onSubmit={handleSubmit}>
-      <fieldset className='space-y-1'>
-        <Label htmlFor='name'>Name</Label>
-        <div className='relative'>
-          <Input
-            name='name'
-            placeholder='Enter name'
-            className='ps-11'
-            onChange={handleChange}
-          />
-          <InputIcon>
-            <ChalkboardTeacher size={19} color='#AFBACA' />
-          </InputIcon>
-        </div>
-      </fieldset>
-      <fieldset className='space-y-1'>
-        <Label htmlFor='email'>Email</Label>
-        <div className='relative'>
-          <Input
-            name='email'
-            placeholder='Enter email'
-            className='ps-11'
-            onChange={handleChange}
-          />
-          <InputIcon>
-            <Envelope size={19} color='#AFBACA' />
-          </InputIcon>
-        </div>
-      </fieldset>
+    <>
+      <form
+        className='mx-auto max-w-md space-y-2 rounded-lg border p-8 shadow-md'
+        onSubmit={handleSubmit}>
+        <fieldset className='space-y-1'>
+          <Label htmlFor='name'>Name</Label>
+          <div className='relative'>
+            <Input
+              name='name'
+              placeholder='Enter name'
+              className='ps-11'
+              onChange={handleChange}
+            />
+            <InputIcon>
+              <ChalkboardTeacher size={19} color='#AFBACA' />
+            </InputIcon>
+          </div>
+        </fieldset>
+        <fieldset className='space-y-1'>
+          <Label htmlFor='email'>Email</Label>
+          <div className='relative'>
+            <Input
+              name='email'
+              placeholder='Enter email'
+              className='ps-11'
+              onChange={handleChange}
+            />
+            <InputIcon>
+              <Envelope size={19} color='#AFBACA' />
+            </InputIcon>
+          </div>
+        </fieldset>
 
-      <fieldset className='space-y-1'>
-        <Label htmlFor='phone'>Phone</Label>
-        <div className='relative'>
-          <Input
-            name='phone'
-            placeholder='Enter phone'
-            className='ps-11'
-            onChange={handleChange}
-          />
-          <InputIcon>
-            <DeviceMobileSpeaker size={19} color='#AFBACA' />
-          </InputIcon>
-        </div>
-      </fieldset>
+        <fieldset className='space-y-1'>
+          <Label htmlFor='phone'>Phone</Label>
+          <div className='relative'>
+            <Input
+              name='phone'
+              placeholder='Enter phone'
+              className='ps-11'
+              onChange={handleChange}
+            />
+            <InputIcon>
+              <DeviceMobileSpeaker size={19} color='#AFBACA' />
+            </InputIcon>
+          </div>
+        </fieldset>
 
-      <fieldset className='space-y-1'>
-        <Label htmlFor='password'>Password</Label>
-        <div className='relative'>
-          <Input
-            id='pin'
-            name='pin'
-            placeholder='Enter password'
-            type='password'
-            className='ps-11'
-            onChange={handleChange}
-          />
-          <InputIcon>
-            <Lock size={19} color='#AFBACA' />
-          </InputIcon>
-        </div>
-      </fieldset>
-      <Button size='sm' color='secondary'>
-        {isLoading ? <Spinner color='info' size='md' /> : 'Create Account'}
+        <fieldset className='space-y-1'>
+          <Label htmlFor='password'>Password</Label>
+          <div className='relative'>
+            <Input
+              id='pin'
+              name='pin'
+              placeholder='Enter password'
+              type='password'
+              className='ps-11'
+              onChange={handleChange}
+            />
+            <InputIcon>
+              <Lock size={19} color='#AFBACA' />
+            </InputIcon>
+          </div>
+        </fieldset>
+        <Button size='sm' color='secondary'>
+          {isLoading ? <Spinner color='info' size='md' /> : 'Create Account'}
+        </Button>
+      </form>
+      <Button onClick={() => navigate('goBack')} size='sm' color='secondary'>
+        Go Back
       </Button>
-    </form>
+    </>
   )
 }

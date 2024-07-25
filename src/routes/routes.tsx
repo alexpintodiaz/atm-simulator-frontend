@@ -4,8 +4,9 @@ import { ErrorPage } from '../pages/error-page'
 import { Layout } from '../ui/layout'
 import App from '../App'
 import { Create } from '../pages/create'
+import { Auth } from '../pages/auth'
 
-export type Paths = '/' | '/dashboard' | '/create'
+export type Paths = '/' | '/dashboard' | '/create' | '/auth'
 
 type FunctionalPaths = '*' | 'goBack'
 
@@ -18,6 +19,7 @@ export const router = createBrowserRouter([
     children: [
       { element: <App />, path: '/' },
       { element: <Create />, path: '/create' },
+      { element: <Auth />, path: '/auth' },
       { element: <Dashboard />, path: '/dashboard' },
     ],
   },
