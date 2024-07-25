@@ -1,7 +1,7 @@
-import { create } from 'zustand'
-import { fetchApi } from '../api/api-instance'
 import { Account, User } from '../api/interfaces/users-api'
-import { devtools } from 'zustand/middleware'
+import { create } from 'zustand'
+import { devtools, persist } from 'zustand/middleware'
+import { fetchApi } from '../api/api-instance'
 
 interface UserState {
   id: string
@@ -18,26 +18,41 @@ interface UserState {
 }
 
 export const useUserStore = create<UserState>()(
-  devtools((set) => ({
-    id: '',
-    name: '',
-    email: '',
-    phone: undefined,
-    accounts: [],
-    setName: (name: string) => set({ name }),
-    setEmail: (email: string) => set({ email }),
-    setPhone: (phone: number) => set({ phone }),
-    setUser: (user: User) => set({ ...user }),
+  devtools(
+    persist(
+      (set) => {
+        return {
+          id: '',
+          name: '',
+          email: '',
+          phone: undefined,
+          accounts: [],
+          setName: (name: string) => set({ name }),
+          setEmail: (email: string) => set({ email }),
+          setPhone: (phone: number) => set({ phone }),
+          setUser: (user: User) => set({ ...user }),
 
-    getUsers: async () => {
-      const { data } = await fetchApi({
-        endpoint: '/user',
-        method: 'GET',
-      })
-      console.log(data)
-      return data
-    },
-    clearStore: () =>
-      set({ id: '', name: '', email: '', phone: undefined, accounts: [] }),
-  })),
+          getUsers: async () => {
+            const { data } = await fetchApi({
+              endpoint: '/user',
+              method: 'GET',
+            })
+            console.log(data)
+            return data
+          },
+          clearStore: () =>
+            set({
+              id: '',
+              name: '',
+              email: '',
+              phone: undefined,
+              accounts: [],
+            }),
+        }
+      },
+      {
+        name: 'user-store',
+      },
+    ),
+  ),
 )
