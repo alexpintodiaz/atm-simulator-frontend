@@ -1,13 +1,6 @@
 import { create } from 'zustand'
 import { fetchApi } from '../api/api-instance'
-
-interface Account {
-  id: string
-  account_number: string
-  pin: string
-  balance: number
-  // userId: string;
-}
+import { Account, User } from '../api/interfaces/users-api'
 
 interface UserState {
   id: string
@@ -18,7 +11,7 @@ interface UserState {
   setName: (name: string) => void
   setEmail: (email: string) => void
   setPhone: (phone: number) => void
-  // getUsers: () => void
+  setUser: (user: User) => void
   getUsers: () => Promise<unknown>
   clearStore: () => void
 }
@@ -32,6 +25,8 @@ export const useUserStore = create<UserState>((set) => ({
   setName: (name: string) => set({ name }),
   setEmail: (email: string) => set({ email }),
   setPhone: (phone: number) => set({ phone }),
+  setUser: (user: User) => set({ ...user }),
+
   getUsers: async () => {
     const { data } = await fetchApi({
       endpoint: '/user',
