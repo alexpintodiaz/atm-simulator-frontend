@@ -1,5 +1,5 @@
 import { fetchApi } from './api-instance'
-import { UsersApi } from './interfaces/UsersApi'
+import { UsersApi } from './interfaces/users-api'
 
 export const usersApi: UsersApi = {
   getAllUsers: async () => {
