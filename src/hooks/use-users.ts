@@ -1,10 +1,12 @@
+import { toast } from 'keep-react'
+import { authApi } from '../api/auth-api'
+import { AuthPayload } from '../api/interfaces/auth-api'
+import { useAppNavigate } from './use-app-navigate'
 import { UserPayload } from '../components/user-form'
 import { usersApi } from '../api/users-api'
-import { useUserStore } from '../store/user-store'
-import { useAppNavigate } from './use-app-navigate'
 import { useState } from 'react'
-import { AuthPayload } from '../api/interfaces/auth-api'
-import { authApi } from '../api/auth-api'
+import { useUserStore } from '../store/user-store'
+import { AxiosError } from 'axios'
 
 export const useUsers = () => {
   const navigate = useAppNavigate()
@@ -43,6 +45,11 @@ export const useUsers = () => {
       navigate('/dashboard')
     } catch (error) {
       setIsLoading(false)
+      if (error instanceof AxiosError) {
+        error.response?.status === 400
+          ? toast.error('Invalid email or password')
+          : toast.error(error.response?.data.message)
+      }
       console.error(['authenticateUser', error])
     }
   }
