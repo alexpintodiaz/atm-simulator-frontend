@@ -1,11 +1,19 @@
-import { FC } from 'react'
+import { Button } from 'keep-react'
 import { CardComponent } from '../components/card-component'
+import { FC, useCallback } from 'react'
+import { useAppNavigate } from '../hooks/use-app-navigate'
 import { useUserStore } from '../store/user-store'
 
 export const Dashboard: FC = () => {
+  const navigate = useAppNavigate()
   const state = useUserStore()
 
   const { name, email, accounts } = state
+
+  const exitAccount = useCallback(() => {
+    state.clearStore()
+    navigate('/')
+  }, [navigate, state])
 
   return (
     <div className='bg-zinc-900 h-screen text-white flex flex-col items-center justify-between'>
@@ -23,6 +31,10 @@ export const Dashboard: FC = () => {
           text={`My account number is ${accounts[0].account_number}`}
           className='my-6'
         />
+
+        <Button onClick={exitAccount} size='xs' color='error'>
+          Exit
+        </Button>
       </div>
     </div>
   )
