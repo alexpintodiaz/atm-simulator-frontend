@@ -6,7 +6,6 @@ import {
 } from 'phosphor-react'
 import { Button, InputIcon, Input, Label, Spinner } from 'keep-react'
 import { useState } from 'react'
-import { crateNewUser } from '../utils/create-new-user'
 import { useUsers } from '../hooks/use-users'
 
 export interface UserPayload {
@@ -37,10 +36,8 @@ export const UserForm = () => {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     console.log(newUser)
-    // const res = await crateNewUser(newUser)
-    createNewUser(newUser)
 
-    // console.log(res)
+    createNewUser(newUser)
   }
 
   return (

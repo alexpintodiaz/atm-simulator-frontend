@@ -1,19 +1,11 @@
 import { FC } from 'react'
 import { CardComponent } from '../components/card-component'
 import { useUserStore } from '../store/user-store'
-import { shallow } from 'zustand/shallow'
-
-
 
 export const Dashboard: FC = () => {
-  const { name, email, accounts } = useUserStore(
-    (state) => ({
-      name: state.name,
-      email: state.email,
-      accounts: state.accounts,
-    }),
-    shallow,
-  )
+  const state = useUserStore()
+
+  const { name, email, accounts } = state
 
   return (
     <div className='bg-zinc-900 h-screen text-white flex flex-col items-center justify-between'>
@@ -22,7 +14,9 @@ export const Dashboard: FC = () => {
           Welcome {name}
         </h1>
         <h2>What can we do for you today?</h2>
-        <h3>your email is {email}</h3>
+        <h3>
+          your email is : <i>{email}</i>
+        </h3>
 
         <CardComponent
           title={`Current Balance: ${accounts[0].balance}`}
