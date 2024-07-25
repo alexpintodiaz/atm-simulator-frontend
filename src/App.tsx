@@ -15,7 +15,7 @@ function App() {
           ATM Simulator
         </h1>
         <div className='flex justify-around'>
-          <ActionButton text='Enter' />
+          <ActionButton text='Enter' onClick={() => navigate('/auth')} />
           <ActionButton
             text='Create Account'
             onClick={() => navigate('/create')}
