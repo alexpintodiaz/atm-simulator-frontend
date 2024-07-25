@@ -6,13 +6,13 @@ import {
 } from 'phosphor-react'
 import { Button, InputIcon, Input, Label } from 'keep-react'
 import { useState } from 'react'
-import { useUsers } from '../hooks/use-users'
+import { crateNewUser } from '../utils/create-new-user'
 
 export interface UserPayload {
   name: string
   email: string
   phone?: number
-  pin: number
+  pin: string
 }
 
 export const UserForm = () => {
@@ -20,16 +20,13 @@ export const UserForm = () => {
     name: '',
     email: '',
     phone: 0,
-    pin: 0,
+    pin: '',
   })
-
-  const { loading, handleCreateUser } = useUsers()
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target
 
-    const newValue =
-      name === 'phone' || name === 'pin' ? parseInt(value, 10) : value
+    const newValue = name === 'phone' ? parseInt(value, 10) : value
 
     setNewUser({ ...newUser, [name]: newValue })
   }
@@ -37,9 +34,9 @@ export const UserForm = () => {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     console.log(newUser)
-    const res = handleCreateUser(newUser)
-    const data = res.then((data) => console.log(data))
-    console.log(data)
+    const res = await crateNewUser(newUser)
+
+    console.log(res)
   }
 
   return (

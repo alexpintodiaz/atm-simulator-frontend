@@ -5,8 +5,7 @@ import { Footer } from './ui/footer'
 import { Header } from './ui/header'
 
 function App() {
-
-  const {getUsers} = useUserStore()
+  const { getUsers } = useUserStore()
 
   getUsers()
 
@@ -22,7 +21,7 @@ function App() {
           <ActionButton text='Create Account' />
         </div>
 
-        {/* <UserForm /> */}
+        <UserForm />
       </div>
       <Footer />
     </div>
