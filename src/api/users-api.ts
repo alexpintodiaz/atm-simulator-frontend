@@ -1,5 +1,5 @@
 import { fetchApi } from './api-instance'
-import { UsersApi } from './interfaces/users-api'
+import { User, UsersApi } from './interfaces/users-api'
 
 export const usersApi: UsersApi = {
   getAllUsers: async () => {
@@ -11,7 +11,7 @@ export const usersApi: UsersApi = {
   },
 
   postUser: async (payload) => {
-    const { data } = await fetchApi({
+    const { data } = await fetchApi<User>({
       endpoint: '/user',
       method: 'POST',
       payload,
