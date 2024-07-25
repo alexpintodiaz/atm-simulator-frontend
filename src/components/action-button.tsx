@@ -1,11 +1,13 @@
 import { ButtonHTMLAttributes, forwardRef, useState } from 'react'
+import { Spinner } from 'keep-react'
 
 interface ActionButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   readonly text: string
+  readonly loading?: boolean
 }
 
 export const ActionButton = forwardRef<HTMLButtonElement, ActionButtonProps>(
-  ({ text, className, ...props }, ref) => {
+  ({ text, loading, className, ...props }, ref) => {
     const [opacity, setOpacity] = useState(0)
 
     const handleMouseEnter = () => {
@@ -31,7 +33,7 @@ export const ActionButton = forwardRef<HTMLButtonElement, ActionButtonProps>(
               background: `radial-gradient(300px circle, rgba(255,255,255,.1), #0000000f)`,
             }}
           />
-          {text}
+          {loading ? <Spinner color='info' size='md' /> : text}
         </button>
       </>
     )
