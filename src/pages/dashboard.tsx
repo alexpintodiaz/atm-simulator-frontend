@@ -48,11 +48,11 @@ export const Dashboard: FC = () => {
           className='my-6 bg-slate-100'
         />
       </div>
-      <div className='flex justify-around'>
+      <div className='flex flex-col gap-4 justify-around sm:flex-row sm:gap-3'>
         <ActionButton
           text='Deposit / Withdrawals'
           onClick={handleOpenDepositModal}
-          className='max-w-28 leading-4'
+          className='sm:max-w-28 sm:leading-4'
         />
         <ActionButton text='Transfer' onClick={handleOpenTransferModal} />
         <ActionButton text='Log Out' onClick={exitAccount} />
