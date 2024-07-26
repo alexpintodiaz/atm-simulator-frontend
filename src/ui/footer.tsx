@@ -2,8 +2,8 @@ import { FC } from 'react'
 
 export const Footer: FC = () => {
   return (
-    <footer className='flex w-full bg-[#6183a1] h-[80px] px-10 py-4'>
-      <span>Copyright © 2024</span>
+    <footer className='flex justify-center text-slate-200 px-10 '>
+      <span className='select-none'>Developed by 🐱‍👤</span>
     </footer>
   )
 }
