@@ -1,12 +1,12 @@
 import { ActionButton } from './components/action-button'
 import { useAppNavigate } from './hooks/use-app-navigate'
-import { useUserStore } from './store/user-store'
+// import { useUserStore } from './store/user-store'
 
 function App() {
-  const { getUsers } = useUserStore()
+  // const { getUsers } = useUserStore()
   const navigate = useAppNavigate()
 
-  getUsers()
+  // getUsers()
 
   return (
     <div className='border border-[#6533ee9b] rounded-3xl p-5 w-8/12 sm:w-7/12 md:w-2/5 lg:w-1/3 xl:w-1/4 2xl:w-1/5'>
