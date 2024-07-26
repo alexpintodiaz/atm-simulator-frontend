@@ -3,10 +3,11 @@ import { AccountsApi } from './interfaces/accounts-api'
 import { Account } from './interfaces/users-api'
 
 export const accountsApi: AccountsApi = {
-  deposit: async () => {
+  depositWithdraws: async (accountNumber, transactionType, amount) => {
     const { data } = await fetchApi<Account>({
-      endpoint: '/user',
+      endpoint: `/account/${transactionType}/${accountNumber}/`,
       method: 'POST',
+      payload: { amount },
     })
     return data
   },

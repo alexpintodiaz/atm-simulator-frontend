@@ -13,7 +13,7 @@ interface UserState {
   setEmail: (email: string) => void
   setPhone: (phone: number) => void
   setUser: (user: User) => void
-  updateBalance: (amount: number) => void
+  updateAccountBalance: (index: number, newBalance: number) => void
   getUsers: () => Promise<unknown>
   clearStore: () => void
 }
@@ -32,22 +32,14 @@ export const useUserStore = create<UserState>()(
           setEmail: (email: string) => set({ email }),
           setPhone: (phone: number) => set({ phone }),
           setUser: (user: User) => set({ ...user }),
-          updateBalance: (amount: number) => {
-            set({
-              accounts: [
-                ...useUserStore.getState().accounts.map((account) => {
-                  if (account.id === useUserStore.getState().id) {
-                    return {
-                      ...account,
-                      balance: amount,
-                    }
-                  }
-                  return account
-                }),
-              ],
-            })
+          updateAccountBalance: (index: number, newBalance: number) => {
+            set((state) => ({
+              ...state,
+              accounts: state.accounts.map((account, i) =>
+                i === index ? { ...account, balance: newBalance } : account,
+              ),
+            }))
           },
-
           getUsers: async () => {
             const { data } = await fetchApi({
               endpoint: '/user',
