@@ -8,6 +8,7 @@ import { Button, InputIcon, Input, Label, Spinner } from 'keep-react'
 import { useState } from 'react'
 import { useUsers } from '../hooks/use-users'
 import { useAppNavigate } from '../hooks/use-app-navigate'
+import { ActionButton } from './action-button'
 
 export interface UserPayload {
   name: string
@@ -106,13 +107,15 @@ export const UserForm = () => {
             </InputIcon>
           </div>
         </fieldset>
-        <Button size='sm' color='secondary'>
-          {isLoading ? <Spinner color='info' size='md' /> : 'Create Account'}
-        </Button>
+        <ActionButton text='Create' loading={isLoading} />
       </form>
-      <Button onClick={() => navigate('goBack')} size='sm' color='secondary'>
-        Go Back
-      </Button>
+      <div className='flex justify-end'>
+        <ActionButton
+          text='Go Back'
+          onClick={() => navigate('goBack')}
+          className='mt-[-72px] mr-8'
+        />
+      </div>
     </>
   )
 }

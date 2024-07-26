@@ -1,9 +1,10 @@
 import { Lock, Bank } from 'phosphor-react'
-import { Button, InputIcon, Input, Label, Spinner } from 'keep-react'
+import { InputIcon, Input, Label } from 'keep-react'
 import { useState } from 'react'
 import { useUsers } from '../hooks/use-users'
 import { useAppNavigate } from '../hooks/use-app-navigate'
 import { AuthPayload } from '../api/interfaces/auth-api'
+import { ActionButton } from './action-button'
 
 export const LogIn = () => {
   const navigate = useAppNavigate()
@@ -63,13 +64,15 @@ export const LogIn = () => {
             </InputIcon>
           </div>
         </fieldset>
-        <Button size='sm' color='secondary'>
-          {isLoading ? <Spinner color='info' size='md' /> : 'Log In'}
-        </Button>
+        <ActionButton text='Log In' loading={isLoading} />
       </form>
-      <Button onClick={() => navigate('goBack')} size='sm' color='secondary'>
-        Go Back
-      </Button>
+      <div className='flex justify-end'>
+        <ActionButton
+          text='Go Back'
+          onClick={() => navigate('goBack')}
+          className='mt-[-72px] mr-8'
+        />
+      </div>
     </>
   )
 }
