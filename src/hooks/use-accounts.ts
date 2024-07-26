@@ -9,7 +9,7 @@ export const useAccounts = () => {
 
   const { updateAccountBalance } = useUserStore()
 
-  const accountDeposit = async (
+  const accountDepositWithdrawals = async (
     accountNumber: string,
     transaction: TransactionType,
     amount: number,
@@ -17,18 +17,19 @@ export const useAccounts = () => {
     setIsLoading(true)
 
     try {
-      const resp = await accountsApi.depositWithdraws(
+      const resp = await accountsApi.depositWithdrawals(
         accountNumber,
         transaction,
         amount,
       )
 
-      console.log('API', resp)
-
       updateAccountBalance(0, resp.balance)
 
       setIsLoading(false)
-      toast.success(`$${amount} was successfully deposited`)
+
+      transaction === 'deposit'
+        ? toast.success(`$${amount} were successfully deposited`)
+        : toast.info(`$${amount} were withdrawn successfully`)
     } catch (error) {
       setIsLoading(false)
       console.error(['accountDeposit', error])
@@ -37,6 +38,6 @@ export const useAccounts = () => {
 
   return {
     isLoading,
-    accountDeposit,
+    accountDepositWithdrawals,
   }
 }

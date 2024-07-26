@@ -48,7 +48,10 @@ export const Dashboard: FC = () => {
         />
 
         <div className='flex justify-around'>
-          <ActionButton text='Deposit' onClick={handleOpenModal} />
+          <ActionButton
+            text='Deposit / Withdrawals'
+            onClick={handleOpenModal}
+          />
           <ActionButton text='Log Out' onClick={exitAccount} />
           <AccountModalAction
             isModalOpen={isOpen}
