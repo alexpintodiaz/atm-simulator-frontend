@@ -45,7 +45,6 @@ export const useUserStore = create<UserState>()(
               endpoint: '/user',
               method: 'GET',
             })
-            console.log(data)
             return data
           },
           clearStore: () =>

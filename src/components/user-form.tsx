@@ -38,8 +38,6 @@ export const UserForm = () => {
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-    console.log(newUser)
-
     createNewUser(newUser)
   }
 
