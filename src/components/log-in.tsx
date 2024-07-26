@@ -1,9 +1,10 @@
 import { Lock, Bank } from 'phosphor-react'
-import { Button, InputIcon, Input, Label, Spinner } from 'keep-react'
+import { InputIcon, Input, Label } from 'keep-react'
 import { useState } from 'react'
 import { useUsers } from '../hooks/use-users'
 import { useAppNavigate } from '../hooks/use-app-navigate'
 import { AuthPayload } from '../api/interfaces/auth-api'
+import { ActionButton } from './action-button'
 
 export const LogIn = () => {
   const navigate = useAppNavigate()
@@ -33,7 +34,9 @@ export const LogIn = () => {
         className='mx-auto max-w-md space-y-2 rounded-lg border p-8 shadow-md'
         onSubmit={handleSubmit}>
         <fieldset className='space-y-1'>
-          <Label htmlFor='account_number'>Account Number</Label>
+          <Label htmlFor='account_number' className='text-slate-200'>
+            Account Number
+          </Label>
           <div className='relative'>
             <Input
               name='account_number'
@@ -48,7 +51,9 @@ export const LogIn = () => {
         </fieldset>
 
         <fieldset className='space-y-1'>
-          <Label htmlFor='password'>Password</Label>
+          <Label htmlFor='password' className='text-slate-200'>
+            Password
+          </Label>
           <div className='relative'>
             <Input
               id='pin'
@@ -63,13 +68,15 @@ export const LogIn = () => {
             </InputIcon>
           </div>
         </fieldset>
-        <Button size='sm' color='secondary'>
-          {isLoading ? <Spinner color='info' size='md' /> : 'Log In'}
-        </Button>
+        <ActionButton text='Log In' loading={isLoading} />
       </form>
-      <Button onClick={() => navigate('goBack')} size='sm' color='secondary'>
-        Go Back
-      </Button>
+      <div className='flex justify-end'>
+        <ActionButton
+          text='Go Back'
+          onClick={() => navigate('goBack')}
+          className='mt-[-72px] mr-8'
+        />
+      </div>
     </>
   )
 }

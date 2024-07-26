@@ -70,16 +70,16 @@ export const TransferModal = ({
               </ModalTitle>
             </div>
             <div className='grid grid-cols-2 gap-y-4'>
-              <span className='pt-2'>Receiving account:</span>
+              <span className='pt-2'>Receiving account :</span>
               <NumberFormat
-                className='ml-4 py-2 px-4 rounded-lg !border outline-none focus:border-[#09BACA]'
+                className='ml-4 py-2 px-4 rounded-lg !border outline-none focus:border-[#6533ee9b]'
                 value={receipt}
                 onValueChange={({ value }) => handleReceiptChange(value)}
                 name='receipt'
               />
-              <span className='pt-2'>Investment:</span>
+              <span className='pt-2'>Amount :</span>
               <NumberFormat
-                className='ml-4 py-2 px-4 rounded-lg !border outline-none focus:border-[#09BACA]'
+                className='ml-4 py-2 px-4 rounded-lg !border outline-none focus:border-[#6533ee9b]'
                 value={value}
                 onValueChange={({ value }) => handleValueChange(Number(value))}
                 name='value'

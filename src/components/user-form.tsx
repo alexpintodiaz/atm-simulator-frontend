@@ -4,10 +4,11 @@ import {
   ChalkboardTeacher,
   DeviceMobileSpeaker,
 } from 'phosphor-react'
-import { Button, InputIcon, Input, Label, Spinner } from 'keep-react'
+import { InputIcon, Input, Label } from 'keep-react'
 import { useState } from 'react'
 import { useUsers } from '../hooks/use-users'
 import { useAppNavigate } from '../hooks/use-app-navigate'
+import { ActionButton } from './action-button'
 
 export interface UserPayload {
   name: string
@@ -47,7 +48,9 @@ export const UserForm = () => {
         className='mx-auto max-w-md space-y-2 rounded-lg border p-8 shadow-md'
         onSubmit={handleSubmit}>
         <fieldset className='space-y-1'>
-          <Label htmlFor='name'>Name</Label>
+          <Label htmlFor='name' className='text-slate-200'>
+            Name
+          </Label>
           <div className='relative'>
             <Input
               name='name'
@@ -61,7 +64,9 @@ export const UserForm = () => {
           </div>
         </fieldset>
         <fieldset className='space-y-1'>
-          <Label htmlFor='email'>Email</Label>
+          <Label htmlFor='email' className='text-slate-200'>
+            Email
+          </Label>
           <div className='relative'>
             <Input
               name='email'
@@ -76,7 +81,9 @@ export const UserForm = () => {
         </fieldset>
 
         <fieldset className='space-y-1'>
-          <Label htmlFor='phone'>Phone</Label>
+          <Label htmlFor='phone' className='text-slate-200'>
+            Phone
+          </Label>
           <div className='relative'>
             <Input
               name='phone'
@@ -91,7 +98,9 @@ export const UserForm = () => {
         </fieldset>
 
         <fieldset className='space-y-1'>
-          <Label htmlFor='password'>Password</Label>
+          <Label htmlFor='password' className='text-slate-200'>
+            Password
+          </Label>
           <div className='relative'>
             <Input
               id='pin'
@@ -106,13 +115,15 @@ export const UserForm = () => {
             </InputIcon>
           </div>
         </fieldset>
-        <Button size='sm' color='secondary'>
-          {isLoading ? <Spinner color='info' size='md' /> : 'Create Account'}
-        </Button>
+        <ActionButton text='Create' loading={isLoading} />
       </form>
-      <Button onClick={() => navigate('goBack')} size='sm' color='secondary'>
-        Go Back
-      </Button>
+      <div className='flex justify-end'>
+        <ActionButton
+          text='Go Back'
+          onClick={() => navigate('goBack')}
+          className='mt-[-72px] mr-8'
+        />
+      </div>
     </>
   )
 }

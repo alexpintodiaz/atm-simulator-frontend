@@ -87,9 +87,9 @@ export const AccountModalAction = ({
                   <Label htmlFor='withdraw'>Withdrawal</Label>
                 </fieldset>
               </div>
-              <span>Investment:</span>
+              <span className='px-6'>Amount :</span>
               <NumberFormat
-                className='w-1/2 ml-4 py-2 px-4 rounded-lg !border outline-none focus:border-[#09BACA]'
+                className='w-1/2 ml-4 py-2 px-4 rounded-lg !border outline-none focus:border-[#6533ee9b]'
                 value={value}
                 onValueChange={({ value }) => handleChange(Number(value))}
                 name='value'
