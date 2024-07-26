@@ -2,7 +2,11 @@ import { useState } from 'react'
 import { toast } from 'keep-react'
 import { accountsApi } from '../api/accounts-api'
 import { useUserStore } from '../store/user-store'
-import { TransactionType } from '../api/interfaces/accounts-api'
+import {
+  AccountTransferPayload,
+  TransactionType,
+} from '../api/interfaces/accounts-api'
+import { AxiosError } from 'axios'
 
 export const useAccounts = () => {
   const [isLoading, setIsLoading] = useState(false)
@@ -36,8 +40,35 @@ export const useAccounts = () => {
     }
   }
 
+  const accountTransfer = async (
+    senderAccount: string,
+    payload: AccountTransferPayload,
+  ) => {
+    setIsLoading(true)
+
+    try {
+      const resp = await accountsApi.transfer(senderAccount, payload)
+
+      updateAccountBalance(0, resp.balance)
+      toast.success(resp.message)
+
+      setIsLoading(false)
+
+      return resp
+    } catch (error) {
+      setIsLoading(false)
+      if (error instanceof AxiosError) {
+        error.response?.status === 400
+          ? toast.error('Something went wrong, please try again')
+          : toast.error(error.response?.data.message)
+      }
+      console.error(['accountTransfer', error])
+    }
+  }
+
   return {
     isLoading,
     accountDepositWithdrawals,
+    accountTransfer,
   }
 }

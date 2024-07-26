@@ -1,23 +1,27 @@
 import { CardComponent } from '../components/card-component'
-import { FC, useCallback, useState } from 'react'
+import { FC, useCallback } from 'react'
 import { useAppNavigate } from '../hooks/use-app-navigate'
 import { useUserStore } from '../store/user-store'
 import { ActionButton } from '../components/action-button'
 import { AccountModalAction } from '../components/account-modal-action'
+import { formatMoney } from '../utils/format-money'
+import { TransferModal } from '../components/transfer-modal'
+import { useModal } from '../hooks/use-modal'
 
 export const Dashboard: FC = () => {
   const navigate = useAppNavigate()
   const state = useUserStore()
 
-  const [isOpen, setIsOpen] = useState(false)
-
-  const handleOpenModal = useCallback(() => {
-    setIsOpen(true)
-  }, [])
-
-  const handleCloseModal = useCallback(() => {
-    setIsOpen(false)
-  }, [])
+  const {
+    isOpen: isOpenDepositModal,
+    handleOpen: handleOpenDepositModal,
+    handleClose: handleCloseDepositModal,
+  } = useModal()
+  const {
+    isOpen: isOpenTransferModal,
+    handleOpen: handleOpenTransferModal,
+    handleClose: handleCloseTransferModal,
+  } = useModal()
 
   const { name, email, accounts } = state
 
@@ -25,6 +29,8 @@ export const Dashboard: FC = () => {
     state.clearStore()
     navigate('/')
   }, [navigate, state])
+
+  const formattedBalance = formatMoney(accounts[0].balance)
 
   return (
     <section className='bg-gray-500 p-4 w-2/5'>
@@ -37,17 +43,25 @@ export const Dashboard: FC = () => {
       </h5>
 
       <CardComponent
-        title={`Current Balance: ${accounts[0].balance}`}
+        title={`Current Balance: ${formattedBalance}`}
         text={`My account number is ${accounts[0].account_number}`}
         className='my-6'
       />
 
       <div className='flex justify-around'>
-        <ActionButton text='Deposit / Withdrawals' onClick={handleOpenModal} />
+        <ActionButton
+          text='Deposit / Withdrawals'
+          onClick={handleOpenDepositModal}
+        />
+        <ActionButton text='Transfer' onClick={handleOpenTransferModal} />
         <ActionButton text='Log Out' onClick={exitAccount} />
         <AccountModalAction
-          isModalOpen={isOpen}
-          handleCloseModal={handleCloseModal}
+          isModalOpen={isOpenDepositModal}
+          handleCloseModal={handleCloseDepositModal}
+        />
+        <TransferModal
+          isModalOpen={isOpenTransferModal}
+          handleCloseModal={handleCloseTransferModal}
         />
       </div>
     </section>
