@@ -5,6 +5,7 @@ import { Layout } from '../ui/layout'
 import App from '../App'
 import { Create } from '../pages/create'
 import { Auth } from '../pages/auth'
+import { ProtectRoute } from '../components/protect-route'
 
 export type Paths = '/' | '/dashboard' | '/create' | '/auth'
 
@@ -20,7 +21,14 @@ export const router = createBrowserRouter([
       { element: <App />, path: '/' },
       { element: <Create />, path: '/create' },
       { element: <Auth />, path: '/auth' },
-      { element: <Dashboard />, path: '/dashboard' },
+      {
+        element: (
+          <ProtectRoute>
+            <Dashboard />
+          </ProtectRoute>
+        ),
+        path: '/dashboard',
+      },
     ],
   },
   { path: '*', element: <ErrorPage /> },
