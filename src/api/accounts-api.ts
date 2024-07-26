@@ -1,5 +1,5 @@
 import { fetchApi } from './api-instance'
-import { AccountsApi } from './interfaces/accounts-api'
+import { AccountsApi, TransferResponse } from './interfaces/accounts-api'
 import { Account } from './interfaces/users-api'
 
 export const accountsApi: AccountsApi = {
@@ -8,6 +8,16 @@ export const accountsApi: AccountsApi = {
       endpoint: `/account/${transactionType}/${accountNumber}/`,
       method: 'POST',
       payload: { amount },
+    })
+    return data
+  },
+
+  transfer: async (accountNumber, accountTransferPayload) => {
+    const { data } = await fetchApi<TransferResponse>({
+      endpoint: `/account/transfer/`,
+      method: 'POST',
+      params: { sender: accountNumber },
+      payload: accountTransferPayload,
     })
     return data
   },

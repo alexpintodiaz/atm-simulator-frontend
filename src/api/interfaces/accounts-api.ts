@@ -8,4 +8,19 @@ export interface AccountsApi {
     transactionType: TransactionType,
     amount: number,
   ) => Promise<Account>
+
+  transfer: (
+    accountNumber: string,
+    accountTransferPayload: AccountTransferPayload,
+  ) => Promise<TransferResponse>
+}
+
+export interface AccountTransferPayload {
+  account_number: string
+  amount: number
+}
+
+export interface TransferResponse {
+  message: string
+  balance: number
 }
