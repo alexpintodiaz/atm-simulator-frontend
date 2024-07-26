@@ -1,5 +1,5 @@
 import NumberFormat from 'react-number-format'
-import { CloudArrowUp } from 'phosphor-react'
+import { Money, Fire } from 'phosphor-react'
 import {
   Button,
   Modal,
@@ -35,7 +35,7 @@ export const AccountModalAction = ({
     (store) => store.accounts[0].account_number,
   )
 
-  const { accountDeposit, isLoading } = useAccounts()
+  const { accountDepositWithdrawals, isLoading } = useAccounts()
 
   const handleChange = useCallback((value: number) => {
     setValue(value)
@@ -43,10 +43,10 @@ export const AccountModalAction = ({
 
   const handleConfirm = useCallback(
     async (type: TransactionType, amount: number) => {
-      await accountDeposit(accountNumber, type, amount)
+      await accountDepositWithdrawals(accountNumber, type, amount)
       handleCloseModal()
     },
-    [accountDeposit, accountNumber, handleCloseModal],
+    [accountDepositWithdrawals, accountNumber, handleCloseModal],
   )
 
   return (
@@ -54,12 +54,20 @@ export const AccountModalAction = ({
       <ModalBody>
         <ModalContent>
           <ModalHeader className='mb-6 space-y-3'>
-            <div className='flex h-12 w-12 items-center justify-center rounded-full bg-metal-50 dark:bg-metal-800'>
-              <CloudArrowUp size={28} color='#1B4DFF' />
+            <div className='flex'>
+              <div className='flex h-12 w-12 items-center justify-center rounded-full bg-metal-50 dark:bg-metal-800'>
+                {transactionType === 'deposit' ? (
+                  <Money size={28} color='#2a9d8f' />
+                ) : (
+                  <Fire size={28} color='#d41c1c' />
+                )}
+              </div>
+              <ModalTitle className='mt-2 ml-3'>
+                Select Transaction Type
+              </ModalTitle>
             </div>
-            <div className='space-y-1 bg-red-100'>
-              <ModalTitle>Select Transaction Type</ModalTitle>
-              <>
+            <div className='space-y-1'>
+              <div className='flex items-center gap-6 px-4 pb-4'>
                 <fieldset className='flex items-center gap-2'>
                   <Checkbox
                     id='deposit'
@@ -76,12 +84,12 @@ export const AccountModalAction = ({
                     checked={transactionType === 'withdraw'}
                     onChange={() => setTransactionType('withdraw')}
                   />
-                  <Label htmlFor='withdraw'>Withdraw</Label>
+                  <Label htmlFor='withdraw'>Withdrawal</Label>
                 </fieldset>
-              </>
+              </div>
               <span>Investment:</span>
               <NumberFormat
-                className='p-2 rounded-lg !border outline-none focus:border-[#1072ba]'
+                className='w-1/2 ml-4 py-2 px-4 rounded-lg !border outline-none focus:border-[#09BACA]'
                 value={value}
                 onValueChange={({ value }) => handleChange(Number(value))}
                 name='value'
@@ -90,7 +98,7 @@ export const AccountModalAction = ({
               />
             </div>
           </ModalHeader>
-          <ModalFooter>
+          <ModalFooter className='flex justify-evenly'>
             <Button
               size='sm'
               variant='outline'
@@ -98,7 +106,6 @@ export const AccountModalAction = ({
               onClick={handleCloseModal}>
               Cancel
             </Button>
-
             <Button
               size='sm'
               color='primary'
