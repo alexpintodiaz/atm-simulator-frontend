@@ -34,7 +34,9 @@ export const LogIn = () => {
         className='mx-auto max-w-md space-y-2 rounded-lg border p-8 shadow-md'
         onSubmit={handleSubmit}>
         <fieldset className='space-y-1'>
-          <Label htmlFor='account_number'>Account Number</Label>
+          <Label htmlFor='account_number' className='text-slate-200'>
+            Account Number
+          </Label>
           <div className='relative'>
             <Input
               name='account_number'
@@ -49,7 +51,9 @@ export const LogIn = () => {
         </fieldset>
 
         <fieldset className='space-y-1'>
-          <Label htmlFor='password'>Password</Label>
+          <Label htmlFor='password' className='text-slate-200'>
+            Password
+          </Label>
           <div className='relative'>
             <Input
               id='pin'

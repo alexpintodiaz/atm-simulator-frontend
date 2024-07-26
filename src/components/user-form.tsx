@@ -48,7 +48,9 @@ export const UserForm = () => {
         className='mx-auto max-w-md space-y-2 rounded-lg border p-8 shadow-md'
         onSubmit={handleSubmit}>
         <fieldset className='space-y-1'>
-          <Label htmlFor='name'>Name</Label>
+          <Label htmlFor='name' className='text-slate-200'>
+            Name
+          </Label>
           <div className='relative'>
             <Input
               name='name'
@@ -62,7 +64,9 @@ export const UserForm = () => {
           </div>
         </fieldset>
         <fieldset className='space-y-1'>
-          <Label htmlFor='email'>Email</Label>
+          <Label htmlFor='email' className='text-slate-200'>
+            Email
+          </Label>
           <div className='relative'>
             <Input
               name='email'
@@ -77,7 +81,9 @@ export const UserForm = () => {
         </fieldset>
 
         <fieldset className='space-y-1'>
-          <Label htmlFor='phone'>Phone</Label>
+          <Label htmlFor='phone' className='text-slate-200'>
+            Phone
+          </Label>
           <div className='relative'>
             <Input
               name='phone'
@@ -92,7 +98,9 @@ export const UserForm = () => {
         </fieldset>
 
         <fieldset className='space-y-1'>
-          <Label htmlFor='password'>Password</Label>
+          <Label htmlFor='password' className='text-slate-200'>
+            Password
+          </Label>
           <div className='relative'>
             <Input
               id='pin'
