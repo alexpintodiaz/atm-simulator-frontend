@@ -12,12 +12,10 @@ export const Dashboard: FC = () => {
   const [isOpen, setIsOpen] = useState(false)
 
   const handleOpenModal = useCallback(() => {
-    console.log('handleOpenModal ejecutado')
     setIsOpen(true)
   }, [])
 
   const handleCloseModal = useCallback(() => {
-    console.log('handleCloseModal ejecutado')
     setIsOpen(false)
   }, [])
 
@@ -28,37 +26,30 @@ export const Dashboard: FC = () => {
     navigate('/')
   }, [navigate, state])
 
-  console.log('isOpen', isOpen)
-
   return (
-    <div className='bg-zinc-900 h-screen text-white flex flex-col items-center justify-between'>
-      <div className='bg-gray-500 p-4 w-2/5'>
-        <h2 className='text-3xl font-bold text-center block my-2'>
-          Welcome {name}
-        </h2>
-        <h2>What can we do for you today?</h2>
-        <h5>
-          Your email is : <i>{email}</i>
-        </h5>
+    <section className='bg-gray-500 p-4 w-2/5'>
+      <h2 className='text-3xl font-bold text-center block my-2'>
+        Welcome {name}
+      </h2>
+      <h2>What can we do for you today?</h2>
+      <h5>
+        Your email is : <i>{email}</i>
+      </h5>
 
-        <CardComponent
-          title={`Current Balance: ${accounts[0].balance}`}
-          text={`My account number is ${accounts[0].account_number}`}
-          className='my-6'
+      <CardComponent
+        title={`Current Balance: ${accounts[0].balance}`}
+        text={`My account number is ${accounts[0].account_number}`}
+        className='my-6'
+      />
+
+      <div className='flex justify-around'>
+        <ActionButton text='Deposit / Withdrawals' onClick={handleOpenModal} />
+        <ActionButton text='Log Out' onClick={exitAccount} />
+        <AccountModalAction
+          isModalOpen={isOpen}
+          handleCloseModal={handleCloseModal}
         />
-
-        <div className='flex justify-around'>
-          <ActionButton
-            text='Deposit / Withdrawals'
-            onClick={handleOpenModal}
-          />
-          <ActionButton text='Log Out' onClick={exitAccount} />
-          <AccountModalAction
-            isModalOpen={isOpen}
-            handleCloseModal={handleCloseModal}
-          />
-        </div>
       </div>
-    </div>
+    </section>
   )
 }
