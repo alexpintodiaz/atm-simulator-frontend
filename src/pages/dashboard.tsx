@@ -4,6 +4,7 @@ import { useAppNavigate } from '../hooks/use-app-navigate'
 import { useUserStore } from '../store/user-store'
 import { ActionButton } from '../components/action-button'
 import { AccountModalAction } from '../components/account-modal-action'
+import { formatMoney } from '../utils/format-money'
 
 export const Dashboard: FC = () => {
   const navigate = useAppNavigate()
@@ -26,6 +27,8 @@ export const Dashboard: FC = () => {
     navigate('/')
   }, [navigate, state])
 
+  const formattedBalance = formatMoney(accounts[0].balance)
+
   return (
     <section className='bg-gray-500 p-4 w-2/5'>
       <h2 className='text-3xl font-bold text-center block my-2'>
@@ -37,7 +40,7 @@ export const Dashboard: FC = () => {
       </h5>
 
       <CardComponent
-        title={`Current Balance: ${accounts[0].balance}`}
+        title={`Current Balance: ${formattedBalance}`}
         text={`My account number is ${accounts[0].account_number}`}
         className='my-6'
       />
