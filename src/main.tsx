@@ -4,6 +4,7 @@ import { ToastWrapper } from 'keep-react'
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import './index.css'
+// import './assets/fonts/Exo2-VariableFont_wght.ttf'
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
