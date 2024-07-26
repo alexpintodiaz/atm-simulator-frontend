@@ -1,22 +1,34 @@
 import { CardComponent } from '../components/card-component'
-import { FC, useCallback } from 'react'
+import { FC, useCallback, useState } from 'react'
 import { useAppNavigate } from '../hooks/use-app-navigate'
 import { useUserStore } from '../store/user-store'
 import { ActionButton } from '../components/action-button'
-import { useAccounts } from '../hooks/use-accounts'
+import { AccountModalAction } from '../components/account-modal-action'
 
 export const Dashboard: FC = () => {
   const navigate = useAppNavigate()
   const state = useUserStore()
 
-  const { name, email, accounts } = state
+  const [isOpen, setIsOpen] = useState(false)
 
-  const { accountDeposit, isLoading } = useAccounts()
+  const handleOpenModal = useCallback(() => {
+    console.log('handleOpenModal ejecutado')
+    setIsOpen(true)
+  }, [])
+
+  const handleCloseModal = useCallback(() => {
+    console.log('handleCloseModal ejecutado')
+    setIsOpen(false)
+  }, [])
+
+  const { name, email, accounts } = state
 
   const exitAccount = useCallback(() => {
     state.clearStore()
     navigate('/')
   }, [navigate, state])
+
+  console.log('isOpen', isOpen)
 
   return (
     <div className='bg-zinc-900 h-screen text-white flex flex-col items-center justify-between'>
@@ -36,13 +48,12 @@ export const Dashboard: FC = () => {
         />
 
         <div className='flex justify-around'>
-          <ActionButton
-            text='Deposit'
-            onClick={() => accountDeposit}
-            loading={isLoading}
-          />
-          <ActionButton text='Withdraw' />
+          <ActionButton text='Deposit' onClick={handleOpenModal} />
           <ActionButton text='Log Out' onClick={exitAccount} />
+          <AccountModalAction
+            isModalOpen={isOpen}
+            handleCloseModal={handleCloseModal}
+          />
         </div>
       </div>
     </div>
