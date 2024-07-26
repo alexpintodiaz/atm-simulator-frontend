@@ -28,6 +28,9 @@ export const useUsers = () => {
       navigate('/dashboard')
     } catch (error) {
       setIsLoading(false)
+      if (error instanceof AxiosError) {
+        toast.error(error.response?.data.message[0])
+      }
       console.error(['createNewUser', error])
     }
   }
