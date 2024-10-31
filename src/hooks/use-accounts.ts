@@ -36,6 +36,11 @@ export const useAccounts = () => {
         : toast.info(`$${amount} were withdrawn successfully`)
     } catch (error) {
       setIsLoading(false)
+      if (error instanceof AxiosError) {
+        error.response?.status === 400
+          ? toast.error('Something went wrong, please try again')
+          : toast.error(error.response?.data.message)
+      }
       console.error(['accountDeposit', error])
     }
   }
