@@ -37,9 +37,9 @@ export const useAccounts = () => {
     } catch (error) {
       setIsLoading(false)
       if (error instanceof AxiosError) {
-        error.response?.status === 400
-          ? toast.error('Something went wrong, please try again')
-          : toast.error(error.response?.data.message)
+        error.response?.data?.message
+          ? toast.error(error.response?.data.message)
+          : toast.error('Something went wrong, please try again')
       }
       console.error(['accountDeposit', error])
     }
